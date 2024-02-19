@@ -1,11 +1,11 @@
 "use client";
-
 import Link from "next/link";
-import React, { useEffect, useReducer } from "react";
 
-import { POKEMON, PokemonType } from "../api/pokedex";
+import { PokemonType } from "../api/pokedex";
 import { createImageColor } from "../types/transType";
 import ImageItem from "./ImageItem";
+import { useSelector } from "react-redux";
+import { RootState, store } from "../redux/store/store";
 
 const createImageSrc = (src: number): string => {
   const numStr = Math.abs(src).toString();
@@ -19,14 +19,11 @@ const createImageSrc = (src: number): string => {
 };
 
 export default function ImageList() {
-  // export default function ImageList(props: PokemonType[]) {
-  const PokemonList: PokemonType[] = POKEMON;
-
-  useEffect(() => {}, []);
+  const pokemon = useSelector((state: RootState) => state.poke);
 
   return (
     <div className="flex w-full flex-wrap">
-      {PokemonList.map((pokemon: PokemonType) => {
+      {pokemon.map((pokemon: PokemonType) => {
         const srcString = createImageSrc(pokemon.id);
         const rgbColor = createImageColor(pokemon.type);
 

@@ -6,3 +6,75 @@ body {
   padding: 0;
   margin: 0;
 }
+
+:root {
+  --background: white;
+  --foreground: black;
+}
+
+[data-theme="dark"] {
+  --background: black;
+  --foreground: white;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.modal {
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalInner {
+  opacity: 0;
+  transform: translateX(40px);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 25%;
+  height: 35%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+  transition: 1s;
+}
+.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+.modalInner h1 {
+  margin-bottom: 8px;
+}
+.modalItemList li {
+  padding: 8px 0;
+}
+.modalItemList li:hover {
+  cursor: pointer;
+  background-color: rgb(168, 156, 156);
+  color: white;
+  font-weight: bold;
+}
+.modalInner button {
+  width: 25%;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+.modalInner button:hover {
+  cursor: pointer;
+  background-color: rgb(168, 156, 156);
+  color: white;
+  font-weight: bold;
+}
