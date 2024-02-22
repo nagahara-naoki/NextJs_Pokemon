@@ -27,7 +27,7 @@ export default function Detail() {
   return (
     <div>
       <Header></Header>
-      <div className="w-full h-[calc(100vh-100px)] bg-yellow-500 flex items-center justify-center">
+      <div className="w-full h-svh bg-yellow-500 flex items-center justify-center">
         <div className="absolute bottom-10">
           <Link
             href="/"

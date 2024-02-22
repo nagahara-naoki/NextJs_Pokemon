@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
+import { tv } from "tailwind-variants";
 
 import React from "react";
 
@@ -11,23 +12,27 @@ interface ImageType {
 }
 
 export default function ImageItem(props: ImageType) {
-  const { src, alt, name, width, isDetail } = props;
+  const { src, alt, name, isDetail } = props;
+  const sizeStyle = tv({
+    base: isDetail ? "relative w-80 h-80" : "relative w-28 h-28",
+  });
 
   return (
-    <div className="p-3">
+    <div>
       {isDetail && (
         <div className="bg-white w-full mb-4 rounded">
           <p className="text-center text-lg py-1">{name}</p>
         </div>
       )}
-      <Image
-        src={`/assets/images/${src}.png`}
-        alt={alt}
-        width={width}
-        height={100}
-      ></Image>
+      <div className={sizeStyle()}>
+        <Image
+          src={`/assets/images/${src}.png`}
+          alt={alt}
+          layout="fill"
+        ></Image>
+      </div>
       {!isDetail && (
-        <div className="bg-slate-200 w-full mt-4 rounded">
+        <div>
           <p className="text-center text-sm">{name}</p>
         </div>
       )}

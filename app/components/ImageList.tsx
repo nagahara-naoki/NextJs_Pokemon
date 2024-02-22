@@ -30,7 +30,7 @@ export default function ImageList() {
         return (
           <Link href={`/detail/${srcString}`} key={pokemon.id}>
             <div
-              className="m-2 rounded-md cursor-pointer transition duration-100 ease-in-out transform hover:scale-105 hover:shadow-lg"
+              className="m-2 p-2 rounded-md cursor-pointer transition duration-100 ease-in-out transform hover:scale-105 hover:shadow-lg"
               style={{ background: rgbColor }}
             >
               <ImageItem

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AiOutlineInteraction } from "react-icons/ai";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { POKEMON } from "../api/pokedex";
 import DressChangeModal from "./DressChangeModal";
 import { Dress, updateDress } from "../redux/slice/dressSlice";
 import { colors } from "../types/colors";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Header() {
   const [selectedValue, setSelectedValue] = useState("");
@@ -18,9 +19,11 @@ export default function Header() {
   const [selectColor, setSelectColor] = useState(0);
   const pokemon = useSelector((state: RootState) => state.poke);
   const dressColor: Dress = useSelector((state: RootState) => state.dress);
+  const path = usePathname();
   const dispatch = useDispatch();
-  dispatch(updateDress(colors[selectColor]));
-  console.log(selectColor, "--------------");
+  useEffect(() => {
+    dispatch(updateDress(colors[selectColor]));
+  }, [selectColor]);
 
   const target = [...POKEMON];
   const pressEnter = (e: any) => {
@@ -87,75 +90,76 @@ export default function Header() {
           setSelectColor={setSelectColor}
         />
       )}
-      <div
-        className={`p-3 flex items-center`}
-        // className={`p-3 ${dressColor.hederColor} ${dressColor.textColor} flex items-center`}
-      >
-        <div className="flex items-center">
-          <h1 className="">ポケモン図鑑</h1>
-        </div>
-        <div className="flex flex-1 justify-around">
+      {path === "/" && (
+        <div
+          className={`p-3 ${dressColor.headerColor} ${dressColor.textColor} flex items-center`}
+        >
           <div className="flex items-center">
-            <div className="hover:bg-slate-400 p-2 rounded-sm cursor-pointer">
-              <p onClick={modalOpen}>着せ替え</p>
-            </div>
-            <label className="">並び替え:</label>
-            <select
-              className="text-black rounded p-1 m-2"
-              value={selectedValue}
-              onChange={handleSelectChange}
-            >
-              <option value="">選択してください</option>
-              <option value="Attack">こうげき</option>
-              <option value="Defense">ぼうぎょ</option>
-              <option value="Speed">すばやさ</option>
-              <option value="HP">HP</option>
-            </select>
-            <form>
-              <label className="mr-1">
-                <input
-                  className="mr-1"
-                  type="radio"
-                  name="option"
-                  value="heigh"
-                  onChange={handleRadioCange}
-                />
-                高い
-              </label>
-              <label>
-                <input
-                  className="mr-1"
-                  type="radio"
-                  name="option"
-                  value="row"
-                  onChange={handleRadioCange}
-                />
-                低い
-              </label>
-            </form>
-            <div className="m-1 flex items-center">
-              <button onClick={handleSort}>
-                <AiOutlineInteraction className="size-6" />
-              </button>
-            </div>
-            <div>
-              <input
-                type="text"
-                className="pl-2 pr-2 pt-1 pb-1 text-black"
-                onChange={handleInput}
-                onKeyDown={(e) => pressEnter(e)}
-                placeholder="名前を入力してください"
-              />
-              <button
-                onClick={serachPokemon}
-                className="hover:bg-slate-400 p-2 rounded-sm cursor-pointer"
+            <h1 className="">ポケモン図鑑</h1>
+          </div>
+          <div className="flex flex-1 justify-around">
+            <div className="flex items-center">
+              <div className="hover:bg-white hover:opacity-80 p-2 rounded-sm cursor-pointer">
+                <p onClick={modalOpen}>着せ替え</p>
+              </div>
+              <label className="">並び替え:</label>
+              <select
+                className="text-black rounded p-1 m-2"
+                value={selectedValue}
+                onChange={handleSelectChange}
               >
-                検索
-              </button>
+                <option value="">選択してください</option>
+                <option value="Attack">こうげき</option>
+                <option value="Defense">ぼうぎょ</option>
+                <option value="Speed">すばやさ</option>
+                <option value="HP">HP</option>
+              </select>
+              <form>
+                <label className="mr-1">
+                  <input
+                    className="mr-1"
+                    type="radio"
+                    name="option"
+                    value="heigh"
+                    onChange={handleRadioCange}
+                  />
+                  高い
+                </label>
+                <label>
+                  <input
+                    className="mr-1"
+                    type="radio"
+                    name="option"
+                    value="row"
+                    onChange={handleRadioCange}
+                  />
+                  低い
+                </label>
+              </form>
+              <div className="m-1 flex items-center">
+                <button onClick={handleSort}>
+                  <AiOutlineInteraction className="size-6" />
+                </button>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  className="pl-2 pr-2 pt-1 pb-1 text-black"
+                  onChange={handleInput}
+                  onKeyDown={(e) => pressEnter(e)}
+                  placeholder="名前を入力してください"
+                />
+                <button
+                  onClick={serachPokemon}
+                  className="hover:bg-white p-2 rounded-sm cursor-pointer"
+                >
+                  検索
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </Provider>
   );
 }

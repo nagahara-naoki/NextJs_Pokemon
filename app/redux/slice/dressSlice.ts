@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface Dress {
-  hederColor: string;
+  headerColor: string;
   textColor: string;
 }
 
 const initialState: Dress = {
-  hederColor: "bg-gray-200",
+  headerColor: "bg-gray-200",
   textColor: "text-white-200",
 };
 

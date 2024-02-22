@@ -10,7 +10,6 @@ export default function DressChangeModal(props: any) {
   };
   const select = (num: number) => {
     props.setSelectColor(num);
-    // dispatch(updateDress(colors[num]));
     props.setIsModal(false);
   };
 
